@@ -7,13 +7,14 @@ import java.nio.file.Files;
 import java.util.List;
 
 public class Day9_David {
-    private static final int max = 25;
+    private static final int PREAMBLE = 25;
+
     public static void main(String[] args) throws IOException {
         List<String> list = Files.readAllLines(new File("src/day9/input.txt").toPath(), Charset.defaultCharset());
         long invalid = 0;
 
-        for (int i = max; i < list.size(); i++) {
-            if(equalsPreviousNumbers(i, list) != -1) {
+        for (int i = PREAMBLE; i < list.size(); i++) {
+            if (equalsPreviousNumbers(i, list) != -1) {
                 invalid = Long.parseLong(list.get(i));
             }
         }
@@ -23,16 +24,16 @@ public class Day9_David {
         // Part 2
         for (int i = 0; i < list.size(); i++) {
             long min, max;
-            long currentSum = max = min =  Long.parseLong(list.get(i));
-            int j = i+1;
+            long currentSum = max = min = Long.parseLong(list.get(i));
+            int j = i + 1;
             while (currentSum <= invalid) {
                 long listAtJ = Long.parseLong(list.get(j));
                 currentSum += listAtJ;
-                if(min > listAtJ) min = listAtJ;
-                if(max < listAtJ) max = listAtJ;
-                if(currentSum == invalid) {
-                    System.out.print("Part 2 - min is " +min+ ", max is "+max+".");
-                    System.out.print(" Their sum is " +(min+max));
+                if (min > listAtJ) min = listAtJ;
+                if (max < listAtJ) max = listAtJ;
+                if (currentSum == invalid) {
+                    System.out.print("Part 2 - min is " + min + ", max is " + max + ". Range length is "+ (j-i)+".");
+                    System.out.print(" Their sum is " + (min + max));
                     break;
                 }
                 j++;
@@ -44,10 +45,10 @@ public class Day9_David {
     static long equalsPreviousNumbers(int index, List<String> list) {
         long current = Long.parseLong(list.get(index));
 
-        for (int i = index-1; i >= index-max; i--) {
-            for (int j = index-1; j >= index-max ; j--) {
-                if(i != j) {
-                    if(current == Long.parseLong(list.get(i))+ Long.parseLong(list.get(j))) return -1;
+        for (int i = index - 1; i >= index - PREAMBLE; i--) {
+            for (int j = index - 1; j >= index - PREAMBLE; j--) {
+                if (i != j) {
+                    if (current == Long.parseLong(list.get(i)) + Long.parseLong(list.get(j))) return -1;
                 }
             }
         }
