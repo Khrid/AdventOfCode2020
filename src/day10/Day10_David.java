@@ -9,7 +9,7 @@ public class Day10_David {
     static final int CHARGING_OUTLET = 0;
     static final int BUILTIN_JOLTAGE_ADAPTER = 3;
 
-    static List<Integer> solution = new ArrayList<>(Arrays.asList(4));
+    static List<Integer> solution;
     static List<List<Integer>> arrangements = new ArrayList<>();
 
     public static void main(String[] args) throws FileNotFoundException {
